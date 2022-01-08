@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { checkServiceablePincodesFunction } from "../../helper/HelperFunctions";
 import ImageComponent from "../ImageComponent/ImageComponent";
 
-function WidgetComponent({ widgetData }) {
+function WidgetComponent({ widgetData, array }) {
   const pincode = useSelector((store) => store.data.pincode);
 
   let widgetClass = checkServiceablePincodesFunction(
@@ -19,7 +19,9 @@ function WidgetComponent({ widgetData }) {
       style={{ flexGrow: widgetData.grow.split("%")[0] }}
     >
       {widgetData.assets.map((asset, index) => {
-        return <ImageComponent imageData={asset} key={asset.id} />;
+        return (
+          <ImageComponent imageData={asset} key={asset.id} lsarray={array} />
+        );
       })}
     </div>
   );

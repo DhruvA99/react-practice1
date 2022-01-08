@@ -1,12 +1,29 @@
 import React, { useState } from "react";
 
-function ImageComponent({ imageData }) {
-  const [checkedClass, setCheckedClass] = useState(false);
+function ImageComponent({ imageData, lsarray }) {
+  const [checkedClass, setCheckedClass] = useState(
+    lsarray ? (lsarray.includes(imageData.id) ? true : false) : false
+  );
+  let setLocalStorageFunction = (id, checkedClassValue) => {
+    let array = JSON.parse(localStorage.getItem("checkedStatusArray"));
+    if (checkedClassValue) {
+      array = [...array, id];
+    } else {
+      array = array.filter((item) => item !== id);
+    }
+    localStorage.setItem("checkedStatusArray", JSON.stringify(array));
+  };
   return (
     <div className="p-1 w-full h-full">
       <input
         className="hidden"
-        onClick={() => setCheckedClass((checkedClass) => !checkedClass)}
+        onClick={() => {
+          setCheckedClass((checkedClass) => {
+            setLocalStorageFunction(imageData.id, !checkedClass);
+            return !checkedClass;
+          });
+        }}
+        value={checkedClass}
         type="checkbox"
         id={imageData.id}
         name="radio"

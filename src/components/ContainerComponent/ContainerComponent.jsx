@@ -1,7 +1,7 @@
 import React from "react";
 import WidgetComponent from "../WidgetComponent/WidgetComponent";
 
-function ContainerComponent({ containerData }) {
+function ContainerComponent({ containerData, array }) {
   return (
     <div
       className="flex "
@@ -9,9 +9,17 @@ function ContainerComponent({ containerData }) {
     >
       {containerData.children.map((item, index) => {
         if (item.slotType === "WIDGET")
-          return <WidgetComponent key={index} widgetData={item} />;
+          return (
+            <WidgetComponent key={index} widgetData={item} array={array} />
+          );
         else {
-          return <ContainerComponent key={index} containerData={item} />;
+          return (
+            <ContainerComponent
+              key={index}
+              containerData={item}
+              array={array}
+            />
+          );
         }
       })}
     </div>

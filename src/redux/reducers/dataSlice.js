@@ -1,8 +1,4 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  isRejectedWithValue,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import API from "../../axios/API";
 
 export const fetchData = createAsyncThunk(
@@ -10,10 +6,9 @@ export const fetchData = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await API.get("/");
-      console.log(response.data);
+
       return response.data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.response.data);
     }
   }
